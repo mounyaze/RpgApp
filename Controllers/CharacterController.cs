@@ -1,4 +1,3 @@
-global using dotNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,26 +11,28 @@ namespace dotNet.Controllers
 
     public class CharacterController : ControllerBase 
     {
-        private static List<Character> Characters  = new List<Character> {
-            new Character(),
-            new Character {Id=1, Name ="Mounya"}
+       
+        private readonly ICharacterService _characterService;
 
-        };
+        public CharacterController(ICharacterService characterService )
+        {
+            _characterService = characterService;
+        }
     
         [HttpGet("GetAll")]
-        public ActionResult<List<Character>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> Get()
         {
-            return Ok(Characters);
+            return Ok(await _characterService.GetAllCharacters());
         }
         [HttpGet("{id}")]
-        public ActionResult<Character> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDTO>>> GetSingle(int id)
         {
-            return Ok(Characters.FirstOrDefault(c=> c.Id == id));;
+            return Ok(await _characterService.GetCharacterById(id));
         }
         [HttpPost]
-        public ActionResult<List<Character>> AddCharacter(Character newCharacter){
-            Characters.Add(newCharacter);
-            return Ok(Characters);
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> AddCharacter(AddCharacterDto newCharacter){
+            return Ok(await _characterService.AddCharacter(newCharacter));
+            
         }
     }
 }

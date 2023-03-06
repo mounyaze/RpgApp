@@ -1,2 +1,2 @@
 # dotNet
-just testing
+first dotnet project lol

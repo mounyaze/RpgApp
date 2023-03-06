@@ -10,6 +10,9 @@ namespace dotNet.Services.CharacterService
         Task<ServiceResponse<List<GetCharacterDTO>>> GetAllCharacters();
         Task<ServiceResponse<GetCharacterDTO>> GetCharacterById(int id);
         Task<ServiceResponse<List<GetCharacterDTO>>> AddCharacter(AddCharacterDto newCharacter);
-         
+        Task<ServiceResponse<GetCharacterDTO>> UpdateCharacter(UpdateCharacterDTO updatedcharacter);
+        Task<ServiceResponse<List<GetCharacterDTO>>> DeleteCharacter(int id);
+
+ 
     }
 }

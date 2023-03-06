@@ -32,7 +32,30 @@ namespace dotNet.Controllers
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> AddCharacter(AddCharacterDto newCharacter){
             return Ok(await _characterService.AddCharacter(newCharacter));
+
             
         }
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDTO>>>> UpdateCharacter(UpdateCharacterDTO updatedCharacter){
+            var reponse = await _characterService.UpdateCharacter(updatedCharacter);
+            if (reponse.Data is null)
+            {
+                return NotFound(reponse);
+            }
+            return Ok(reponse);
+            
+            
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetCharacterDTO>>> DeleteCharacter(int id)
+        {
+            var reponse = await _characterService.DeleteCharacter(id);
+            if (reponse.Data is null)
+            {
+                return NotFound(reponse);
+            }
+            return Ok(reponse);       
+        } 
+
     }
 }
